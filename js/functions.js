@@ -1,5 +1,5 @@
 
-//Jquery Simulator:
+// -> Jquery Simulator:
 
 const $ = document.querySelector.bind(document);
 const log = console.log.bind(console);
@@ -7,48 +7,49 @@ const log = console.log.bind(console);
 const html = {
 
     tabsMenu: [...$('.bodyImg__header__menuItems').children],
-    tabContentWrapper: $('.sectionBodyWrapper'),
     tabsContent: [...$('.sectionBodyWrapper').children],
+    tabContentWrapper: $('.sectionBodyWrapper'),
 
 }
 
-// Start Functions OnLoadPage:
+// -> Window Functions:
+
 
 window.addEventListener('load', () => {
+
+    // tabFunction:
+
+    discoverAxisEl(html.tabsContent)
 
     const tabNavigation = TabNavigation();
     tabNavigation.init()
 
-})
+    //
 
-// General Functions:
+});
 
-function fadeOut(el) {
-    el.style.opacity = 1;
-    (function fade() {
-        if ((el.style.opacity -= .1) < 0) {
-            el.style.display = "none";
-        } else {
-            requestAnimationFrame(fade);
+
+
+// -> General Functions:
+
+
+
+
+// -> Function Tab Navigation:
+
+let positionHorizontalScroll = [];
+
+function discoverAxisEl(element = []) {
+
+    element.forEach(item => {
+        let obj = {
+            id: item.id,
+            xAxis: item.getBoundingClientRect().x
         }
-    })();
-};
+        positionHorizontalScroll.push(obj)
+    })
 
-function fadeIn(el, display) {
-    el.style.opacity = 0;
-    el.style.display = display || "block";
-    (function fade() {
-        var val = parseFloat(el.style.opacity);
-        if (!((val += .1) >= 1)) {
-            el.style.opacity = val;
-            requestAnimationFrame(fade);
-        }
-    })();
-};
-
-
-// Function Tab Navigation:
-
+}
 
 function TabNavigation() {
 
@@ -66,10 +67,15 @@ function TabNavigation() {
 
     const showCurrentTabContent = (id) => {
 
-        const tabContent = $(`#${id}`);
+        //const tabContent = $(`#${id}`);
 
-        
-        //html.tabContentWrapper.scrollTo(tabContent.getBoundingClientRect().x, 0 )        
+        const axis = positionHorizontalScroll.find((el) => el.id === id)
+
+        html.tabContentWrapper.scrollTo({
+            top: 0,
+            left: axis.xAxis,
+            behavior: 'smooth',
+        })
 
     }
 
