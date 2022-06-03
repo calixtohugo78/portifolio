@@ -28,6 +28,7 @@
     background-position: center;
     border: .2px solid #ccc;
     cursor: pointer;
+    position: relative;
 }
 
 .bodyImg__header__menuItems {
@@ -135,10 +136,28 @@
 
 #about .sectionBodyWrapper__sectionBody__body__links > a:hover{
     opacity: 1;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.6);
+    box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.3);
 }
 
 #about .sectionBodyWrapper__sectionBody__body__links > a > img{
     width: 2.4em;
     margin-left:3px;
+}
+
+/**/
+
+#exp .sectionBodyWrapper__sectionBody__body{
+    justify-content: space-evenly;
+}
+
+#exp .sectionBodyWrapper__sectionBody__body__expItem{
+    flex: 1 0 calc(33.3%);
+    padding: 24px 3%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#exp .sectionBodyWrapper__sectionBody__body__expItem:not(.sectionBodyWrapper__sectionBody__body__expItem:last-of-type){
+    border-right: 1px solid #ccc;
 }
