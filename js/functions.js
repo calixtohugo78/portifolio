@@ -73,7 +73,7 @@ function TabNavigation() {
 
         html.tabContentWrapper.scrollTo({
             top: 0,
-            left: axis.xAxis,
+            left: axis.xAxis - 28,
             behavior: 'smooth',
         })
 
