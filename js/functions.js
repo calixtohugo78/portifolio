@@ -2,11 +2,13 @@
 //Jquery Simulator:
 
 const $ = document.querySelector.bind(document);
+const log = console.log.bind(console);
 
 const html = {
 
     tabsMenu: [...$('.bodyImg__header__menuItems').children],
-    tabsContent:[... $('.sectionBodyWrapper').children]
+    tabContentWrapper: $('.sectionBodyWrapper'),
+    tabsContent: [...$('.sectionBodyWrapper').children],
 
 }
 
@@ -17,24 +19,41 @@ window.addEventListener('load', () => {
     const tabNavigation = TabNavigation();
     tabNavigation.init()
 
-}) 
+})
 
-// Functions:
+// General Functions:
+
+function fadeOut(el) {
+    el.style.opacity = 1;
+    (function fade() {
+        if ((el.style.opacity -= .1) < 0) {
+            el.style.display = "none";
+        } else {
+            requestAnimationFrame(fade);
+        }
+    })();
+};
+
+function fadeIn(el, display) {
+    el.style.opacity = 0;
+    el.style.display = display || "block";
+    (function fade() {
+        var val = parseFloat(el.style.opacity);
+        if (!((val += .1) >= 1)) {
+            el.style.opacity = val;
+            requestAnimationFrame(fade);
+        }
+    })();
+};
+
+
+// Function Tab Navigation:
 
 
 function TabNavigation() {
 
     const init = () => {
-        hideAllContents();
         listenForChange();
-    }
-
-    const hideAllContents = () => {
-
-        html.tabsContent.forEach(section => {
-            section.className = "sectionBodyWrapper__sectionBody invisibleSection";
-        })
-
     }
 
     const removeAllActiveClass = () => {
@@ -48,18 +67,18 @@ function TabNavigation() {
     const showCurrentTabContent = (id) => {
 
         const tabContent = $(`#${id}`);
-        tabContent.className = "sectionBodyWrapper__sectionBody visibleSection";
 
-        console.log(tabContent)
+        
+        //html.tabContentWrapper.scrollTo(tabContent.getBoundingClientRect().x, 0 )        
 
     }
 
     const selectTab = (event) => {
 
-        hideAllContents();
         removeAllActiveClass();
 
         const target = event.currentTarget;
+
         showCurrentTabContent(target.dataset.id)
 
         target.children[0].className += " active";
@@ -74,7 +93,7 @@ function TabNavigation() {
 
     }
 
-    return{
+    return {
         init
     }
 

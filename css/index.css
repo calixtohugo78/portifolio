@@ -62,11 +62,22 @@
     right: auto;
 }
 
-.invisibleSection{
-    opacity: 0;
-}
+
 
 .sectionBodyWrapper{
-    background-color: #fff;
-    opacity: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 16px;
+    overflow-x: hidden;
+    height: 800px;
+}
+
+.sectionBodyWrapper__sectionBody{
+    flex: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
 }
